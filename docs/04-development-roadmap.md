@@ -37,9 +37,9 @@ This roadmap turns the product brief and technology plan into small, reviewable 
 - [x] **1.1 Scaffold and launch — `DONE`.** Generated and reviewed the minimal Expo + React Native + TypeScript app. The user confirmed the starter screen loads in Expo Go on the Android phone without a red screen.
   - Automated: install from the generated lockfile; run the scaffold's type-check/lint/build checks that exist.
   - Manual: start the app, open it in Expo Go on the agreed Android phone, and confirm the starter screen loads without a red screen.
-- [ ] **1.2 Baseline and dependency record — `IN PROGRESS`.** Confirm the Expo SDK, package manager, available scripts, router choice, and baseline test command. Keep only the navigation dependency required by the chosen app structure.
-  - Automated: run the baseline type-check and lint; record exact commands in project docs.
-  - Manual: relaunch after a cold close; confirm the app still opens.
+- [x] **1.2 Baseline and dependency record — `DONE`.** Confirmed Expo SDK `~58.0.20` / SDK 58.0.0, Node.js 22.20.0, npm 10.9.3, the blank TypeScript app structure, and Expo Router as the planned navigation choice. Defer router packages until routed screens are introduced; the blank root app does not need a navigation dependency. Added the repeatable `npm run typecheck` script. The scaffold has no lint or test runner yet. The user cold-closed and reopened Expo Go on the Android phone and confirmed there was no red screen.
+  - Automated: `npm ci --no-audit --no-fund`; `npm run typecheck`; `npx expo config --type public`. Lint/test commands are not available in the blank template.
+  - Manual: on the Android phone, cold-close Expo Go and reopen InstantNote from the project list or scan the current Expo QR code; confirm the starter screen loads without a red screen.
 
 **Gate:** A minimal app starts on the target phone and there is a known, repeatable check command. Pause for user review.
 
