@@ -45,10 +45,10 @@ This roadmap turns the product brief and technology plan into small, reviewable 
 
 ## Phase 2 — Establish the product's visual language
 
-- [ ] **2.1 Design reference and tokens — `NOT STARTED`.** Create one small approved reference for the capture-ready and saved-ideas screens. Define semantic color, spacing, typography, radius, elevation, and motion tokens in one theme entry point. Choose actual font/icon assets only when licensing, platform support, and offline behavior are confirmed.
+- [x] **2.1 Design reference and tokens — `DONE`.** The user approved proceeding with the clean, premium design direction. Created the capture/saved-ideas reference in [`design-reference.md`](design-reference.md) and shared light/dark theme tokens under [`theme/`](../theme/). All checked text/action pairs exceed 4.5:1 contrast. Uses the system sans-serif; no font/icon packages or assets added.
   - Automated: type-check theme exports; check color contrast for text and controls.
   - Manual: inspect the reference on a phone-sized viewport in light mode and, if supported, dark mode. Confirm it feels calm/editorial and not like a generic AI template.
-- [ ] **2.2 Shared primitives — `NOT STARTED`.** Implement only the first needed primitives (for example primary action, icon action, section heading, and status message) using the theme. Do not build a speculative component library.
+- [ ] **2.2 Shared primitives — `IN PROGRESS`.** Implement only the first needed primitives (for example primary action, icon action, section heading, and status message) using the theme. Do not build a speculative component library.
   - Automated: type-check; run focused component tests if the chosen setup supports them.
   - Manual: check touch targets (44pt iOS / 48dp Android), text legibility, pressed/disabled feedback, and spacing.
 - [ ] **2.3 App shell and capture-ready screen — `NOT STARTED`.** Build the static first screen and a simple saved-ideas entry point from the approved design reference. The microphone action is visible but does not record yet.
