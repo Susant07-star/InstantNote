@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { spacing } from '../theme';
+import { spacing } from '@/theme';
 import { ThemedText } from './themed-text';
 
 type SectionHeadingProps = {

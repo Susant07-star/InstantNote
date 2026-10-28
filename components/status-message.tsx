@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { radius, spacing, useThemeColors } from '../theme';
+import { radius, spacing, useThemeColors } from '@/theme';
 import { ThemedText } from './themed-text';
 
 type StatusMessageProps = {

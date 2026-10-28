@@ -1,7 +1,7 @@
 import { Button as NativeButton, Host } from '@expo/ui';
 import type { StyleProp, ViewStyle } from 'react-native';
 import { useColorScheme } from 'react-native';
-import { radius, spacing, useThemeColors } from '../theme';
+import { radius, spacing, useThemeColors } from '@/theme';
 
 const variants = {
   primary: 'filled',

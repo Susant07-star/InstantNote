@@ -14,11 +14,17 @@ Use the project-local skills in `.agents/skills/` for applicable Expo and Supaba
 ## Interface quality
 
 - Aim for a polished, native-feeling **field notebook for developing ideas**: calm, editorial, warm, and focused on the user's own captures. It should feel deliberately art-directed, not like a generic AI dashboard.
+- Every screen should feel beautiful, cohesive, and responsive across small and large phones, tablets, and landscape orientations; preserve hierarchy and usable controls as screen size and text scaling change.
+- Use the approved WhatsApp reference at `docs/WhatsApp Image 2026-10-28 at 3.47.00 PM.jpeg` for navigation and ideas-list structure, not as a requirement to copy its dark palette. Keep the existing system-responsive light/dark theme.
+- Place Capture and Ideas as the two top-level tabs. Keep the main capture screen free of app-name text; provide a leading drawer control whose panel shows “InstantNote” and a temporary generic circular logo mark.
+- In the drawer's first row, place the sidebar icon on the left with the temporary circular logo and “InstantNote” title. Show the trailing three-dot List/Card/Grid view menu on Ideas only; hide it on Capture.
+- On the Ideas screen, provide a local search field and a pencil action for manually composing a text idea. Typed ideas and search results remain local; preserve the user's exact text and do not invent AI content.
 - Use a restrained paper-and-ink foundation with one natural brand accent and a sparing capture/status accent. Define the actual palette, type scale, spacing, radii, and motion as shared theme tokens when the app is scaffolded; do not scatter one-off styles across screens.
 - Let original photos, recordings, and the user's words lead. Make AI suggestions clearly secondary and labeled. Keep the capture action immediately obvious without letting it overwhelm browsing and returning to ideas.
 - Avoid template-like screens: repeated cards around every element, generic gradients or glass, decorative blobs, excessive shadows, emoji icons, filler metrics, and generic AI sparkle motifs. Use a consistent native icon family and purposeful, restrained motion.
 - Use `ui-ux-pro-max` for product-specific design research and `expo-design-system` plus `expo-native-ui` for implementation. Treat generated recommendations as candidates: check that they actually fit a mobile idea-capture app and the detected Expo SDK before adopting them.
-- Meet platform touch-target guidance (44pt on iOS, 48dp on Android), maintain accessible contrast and readable type, respect safe areas and reduced motion, and provide clear feedback for recording, saving, offline, error, and retry states.
+- Meet platform touch-target guidance (44pt on iOS, 48dp on Android), maintain accessible contrast and readable type, respect live safe-area insets in custom navigation chrome, drawers, and overlays so controls never overlap system status/navigation bars, and respect reduced motion. Provide clear feedback for recording, saving, offline, error, and retry states.
+- Visually separate the app header from screen content with a subtle, theme-aware divider that remains consistent across routes.
 
 ## Product and data principles
 

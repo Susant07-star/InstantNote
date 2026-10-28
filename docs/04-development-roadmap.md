@@ -43,7 +43,7 @@ This roadmap turns the product brief and technology plan into small, reviewable 
 
 **Gate:** A minimal app starts on the target phone and there is a known, repeatable check command. Pause for user review.
 
-## Phase 2 — Establish the product's visual language
+## Phase 2 — Establish the app shell and local text-idea workflow
 
 - [x] **2.1 Design reference and tokens — `DONE`.** The user approved proceeding with the clean, premium design direction. Created the capture/saved-ideas reference in [`design-reference.md`](design-reference.md) and shared light/dark theme tokens under [`theme/`](../theme/). All checked text/action pairs exceed 4.5:1 contrast. Uses the system sans-serif; no font/icon packages or assets added.
   - Automated: type-check theme exports; check color contrast for text and controls.
@@ -51,11 +51,23 @@ This roadmap turns the product brief and technology plan into small, reviewable 
 - [x] **2.2 Shared primitives — `DONE`.** Added the SDK-compatible native `@expo/ui` dependency plus a themed native button, section heading, status message, and text primitive. `npm run typecheck` and `npx expo install --check` pass. Following the user's request to use best judgment, on-device touch-target, pressed/disabled, and visual inspection is deferred to slice 2.3, when the primitives are integrated into a screen.
   - Automated: type-check; run focused component tests if the chosen setup supports them.
   - Manual: check touch targets (44pt iOS / 48dp Android), text legibility, pressed/disabled feedback, and spacing.
-- [ ] **2.3 App shell and capture-ready screen — `NOT STARTED`.** Build the static first screen and a simple saved-ideas entry point from the approved design reference. The microphone action is visible but does not record yet.
-  - Automated: lint/type-check; test screen rendering.
-  - Manual: launch on device; verify safe areas, hierarchy, navigation affordances, and that microphone permission/recording does not start on opening.
-
-**Gate:** User approves a consistent visual foundation before functional screens expand. Later screens must reuse these tokens and primitives.
+- [x] **2.3 Reference-led navigation and app shell — `DONE`.** Implemented the reference-led Capture/Ideas tabs, leading drawer control and placeholder branding, theme-aware divider and safe-area-aware top header, plus the Ideas-only three-dot view menu. The user reviewed and approved the shell on Android phones.
+  - Automated: TypeScript, Expo SDK dependency/config checks, and Android export.
+  - Manual: review the Capture/Ideas top tabs, drawer open/close, placeholder branding, header divider, and responsive layout on Android.
+- [x] **2.4 Local text-idea model and repository — `DONE`.** Added the typed, user-authored text idea and local SQLite create/read/update/delete operations. Original text remains separate from future AI fields; text ideas need no audio or attachments. The user approved proceeding with this model.
+  - Automated: in-memory SQLite smoke test passed for schema migration, create/read/list/update/delete, exact text preservation, empty input, and missing records; TypeScript and Expo SDK checks pass.
+  - Manual: user approved proceeding with this minimal local text-idea model.
+  - Sample: `{ id: 1, title: null, originalText: "The user's exact note text", createdAt: "ISO timestamp", updatedAt: "ISO timestamp" }`.
+- [x] **2.5 Manual idea composer and local saving — `DONE`.** Added the pencil action, native text editor, local SQLite save with saving/success/retryable-error states, and a local Ideas list so saved text remains accessible after leaving or reopening the app. No AI processing is included. The user verified the workflow on an Android phone.
+  - Automated: `npm run typecheck`, `npx expo install --check`, Android export, and an in-memory SQLite smoke test for migration, exact-text create/read/list, blank input, and missing-record errors. The scaffold has no component-test runner.
+  - Manual: on Android, submit an empty draft and confirm the validation message; then save a note and confirm the exact text on the saved screen and Ideas list. Force-close/reopen the app and confirm it remains. Report if a failed save clears the draft or offers no retry.
+- [x] **2.6 Local idea search — `DONE`.** Added live, case-insensitive, on-device filtering for saved titles and user-authored text. The bottom search field includes a clear control, stays above the keyboard, and keeps the compose action available; an empty library and a query with no matches have separate states. Search does not send note content over the network. The user verified search and keyboard behavior on Android.
+  - Automated: `npm run typecheck`, `npx expo install --check`, Android export, and a focused helper smoke test for title/text/partial/case-insensitive matches, blank and whitespace queries, no results, stable order, and input immutability.
+  - Manual: Android verification passed for search and keyboard visibility.
+- [ ] **2.7 Rich-text editor — `NOT STARTED`.** Extend the manual editor with useful note formatting such as headings, bold, italic, and bulleted/numbered lists. Preserve formatting when saving/reopening, keep existing plain-text notes readable/editable, and keep search working over note content. Confirm the editor approach and any additional formatting controls with the user before implementation.
+  - Automated: formatting operations, save/reopen round-trip, and plain-text search-projection tests.
+  - Manual: format, save, reopen, edit, and search a note; confirm formatting and all user-authored content remain intact.
+**Gate:** User reviews and approves the reference-led shell and local text-idea workflow before media capture expands. Later screens must reuse these tokens and primitives.
 
 ## Phase 3 — Prove phone capture capabilities
 
@@ -74,12 +86,12 @@ This roadmap turns the product brief and technology plan into small, reviewable 
 
 ## Phase 4 — Save captures safely on-device
 
-- [ ] **4.1 Capture data model — `NOT STARTED`.** Define the smallest typed model for an idea, original voice recording, ordered attachment, transcript, AI draft, and processing state. Keep user-authored and AI-authored fields distinct.
+- [ ] **4.1 Capture data model — `NOT STARTED`.** Extend the local text-idea model with original voice, ordered attachments, transcript, AI draft, and processing state. Keep user-authored and AI-authored fields distinct.
   - Automated: type-check and unit tests for required fields/order/state transitions.
-  - Manual: review a sample record shape; confirm it can represent voice-only, voice-plus-photo, later thoughts, and failed AI processing without replacing originals.
-- [ ] **4.2 SQLite persistence — `NOT STARTED`.** Add the minimal local schema and repository operations for creating, loading, updating, and deleting an idea. No network calls.
+  - Manual: review a sample record shape; confirm it can represent text-only, voice-only, voice-plus-photo, later thoughts, and failed AI processing without replacing originals.
+- [ ] **4.2 SQLite persistence — `NOT STARTED`.** Extend the existing local text-idea schema and repository with capture/media fields and migrations. Keep the same database and repository; do not move data or introduce network calls.
   - Automated: migration/schema tests and CRUD tests against a local test database.
-  - Manual: create and reopen a sample idea after restarting the app.
+  - Manual: reopen manually typed and media-backed ideas after restarting the app.
 - [ ] **4.3 Durable media file storage — `NOT STARTED`.** Move a captured file from temporary cache into app document storage and persist its local URI. Define deletion/cleanup behavior.
   - Automated: file-copy and missing-file error tests.
   - Manual: save a photo/audio file, force-close/reopen, play/view it, then delete the idea and confirm its app-owned file is removed.
@@ -105,7 +117,7 @@ This roadmap turns the product brief and technology plan into small, reviewable 
 
 ## Phase 6 — Browse, revisit, and develop ideas locally
 
-- [ ] **6.1 Saved ideas list — `NOT STARTED`.** Build a content-led list from real local records, including designed loading, empty, and error states. Avoid dashboard metrics and repeated decorative cards.
+- [ ] **6.1 Captured-idea list — `NOT STARTED`.** Extend the Phase 2 text-idea list to include real voice/photo captures, with loading, empty, error, and content states. Avoid dashboard metrics and repeated decorative cards.
   - Automated: list sorting and empty-state tests.
   - Manual: verify empty, one-item, and multi-item states on device; reopen an idea.
 - [ ] **6.2 Idea detail and edits — `NOT STARTED`.** Show original thought/media separately from editable transcript and later AI fields. Preserve previous user text on save failures.
@@ -114,9 +126,9 @@ This roadmap turns the product brief and technology plan into small, reviewable 
 - [ ] **6.3 Add a later thought and attachment — `NOT STARTED`.** Append to the selected idea's timeline without changing earlier thoughts or silently merging separate ideas.
   - Automated: append/order/association tests.
   - Manual: add a later thought to one idea and confirm a second idea remains unchanged.
-- [ ] **6.4 Local text search and delete confirmation — `NOT STARTED`.** Search saved titles/transcripts locally and provide explicit confirmation before destructive deletion.
-  - Automated: search matching and deletion tests.
-  - Manual: search for a known phrase, clear search, cancel deletion, then confirm deletion of a test idea and its files.
+- [ ] **6.4 Extend local search and delete confirmation — `NOT STARTED`.** Extend the search introduced in slice 2.6 to user-authored transcripts and later thoughts, then provide explicit confirmation before destructive deletion.
+  - Automated: transcript/thought search matching and deletion tests.
+  - Manual: search a recorded phrase, clear search, cancel deletion, then confirm deletion of a test idea and its files.
 
 **Gate:** A user can capture, leave, find, reopen, edit, append to, and delete an idea without network access.
 

@@ -18,6 +18,8 @@ npm start
 
 Open the project in Expo Go on an Android phone connected to the same network, then scan the terminal QR code.
 
+The capture screen's voice button is only a preview: it does not request microphone access or start recording. Ideas supports manually typed notes saved locally with SQLite and on-device search; rich-text formatting and media capture are planned for later phases.
+
 ## Checks
 
 ```sh
@@ -25,11 +27,11 @@ npm run typecheck
 npx expo config --type public
 ```
 
-The blank TypeScript scaffold does not currently include a lint or test runner.
+The project does not currently include a lint or test runner.
 
 ## Project baseline
 
 - Expo SDK 58, React Native, and TypeScript.
 - npm with `package-lock.json`; use `npm ci` for a reproducible install.
-- Expo Router is the selected navigation approach for routed screens. Its dependency is intentionally deferred until the route shell is introduced.
-- Until then, `App.tsx` is the app entry point.
+- Expo Router provides file-based app navigation; routes are in `app/`.
+- The package entry point is `expo-router/entry`; shared components and theme tokens live in `components/` and `theme/`.
